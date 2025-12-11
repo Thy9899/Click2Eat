@@ -1,0 +1,21 @@
+.recent-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.recent-box table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recent-box th,
+.recent-box td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.recent-box th {
+  text-align: left;
+}

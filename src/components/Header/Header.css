@@ -1,0 +1,51 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 240px;
+  right: 0;
+  height: 95px;
+  background: linear-gradient(135deg, #5ce4e2 0%, #bc82f6 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Poppins", sans-serif;
+  margin: 10px;
+  border-radius: 20px;
+  /* transition: left 0.3s, width 0.3s; */
+  transition: all 0.5s ease;
+}
+
+.header.sidebar-collapsed {
+  left: 100px;
+  right: 0;
+}
+
+.header .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: #695cfe;
+  margin-left: 40%;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-info .profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.user-info .username {
+  /* font-weight: 600; */
+  font-size: 20px;
+}

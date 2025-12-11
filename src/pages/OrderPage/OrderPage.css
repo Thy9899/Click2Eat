@@ -1,0 +1,83 @@
+.admin-orders-container {
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-seacrch {
+  margin-bottom: 20px;
+}
+
+/* .action-btn {
+  width: 90px;
+} */
+
+.action-btn i {
+  font-size: 18px;
+}
+
+.confirm-btn {
+  padding: 5px 10px;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.confirm-btn:hover {
+  background-color: #059669;
+}
+
+.cancel-btn {
+  padding: 5px 10px;
+  background-color: #de1010;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.cancel-btn:hover {
+  background-color: #a30f0f;
+}
+
+/* -----------------------------------
+   Spinner container centered in page
+----------------------------------- */
+.spinner-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* adjust based on your container */
+  margin: auto;
+  position: relative;
+  margin-top: 17.5%;
+  margin-bottom: 21%;
+}
+
+/* -----------------------------------
+   Spinner circle styling
+----------------------------------- */
+.spinner-border {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0.4em solid #f3f3f3; /* light gray */
+  border-top: 0.4em solid #17a2b8; /* Bootstrap info color */
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* -----------------------------------
+   Spin animation
+----------------------------------- */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
