@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "./PaymentPage.css";
 
 const PaymentPage = () => {
-  // ✅ Get states & functions from PaymentContext
+  // Get states & functions from PaymentContext
   const {
     currentOrder, // Order object returned after search
     loading, // Loading state (searching / paying)
@@ -16,13 +16,13 @@ const PaymentPage = () => {
   // Local state for the input box
   const [searchId, setSearchId] = useState("");
 
-  // 🔎 Handle order search
+  // Handle order search
   const handleSearch = () => {
     if (!searchId.trim()) return toast.warning("Please enter an Order ID");
     fetchOrderById(searchId);
   };
 
-  // 💳 Handle payment process
+  // Handle payment process
   const handlePayment = () => {
     if (!currentOrder) return;
     processPayment(currentOrder._id, "Credit Card");
@@ -33,7 +33,7 @@ const PaymentPage = () => {
       <h2>Payment</h2>
 
       <div className="payment-container">
-        {/* 🔍 Search Box */}
+        {/* Search Box */}
         <div className="search-box d-inline-block me-3">
           <i className="bx bx-search-alt icon"></i>
           <input
@@ -54,7 +54,7 @@ const PaymentPage = () => {
         </button>
 
         <div className="pay-cus-info">
-          {/* ✅ Display Order Data when found */}
+          {/* Display Order Data when found */}
           {currentOrder && (
             <div className="order-box">
               <table className="stock-table or-tb">
@@ -66,6 +66,7 @@ const PaymentPage = () => {
                     <th>Total</th>
                     <th>Status</th>
                     <th>Payment Status</th>
+                    <th>Customer Email</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -76,11 +77,12 @@ const PaymentPage = () => {
                     <td>${currentOrder.total_price}</td>
                     <td>{currentOrder.status}</td>
                     <td>{currentOrder.payment_status}</td>
+                    <td>{currentOrder.customer_id?.email}</td>
                   </tr>
                 </tbody>
               </table>
 
-              {/* 💳 Pay Now Button */}
+              {/* Pay Now Button */}
               <button
                 className="pay-btn"
                 onClick={handlePayment}
@@ -89,12 +91,12 @@ const PaymentPage = () => {
                 {loading ? "Processing..." : "Pay Now"}
               </button>
 
-              {/* 🟢 Payment Success Message */}
+              {/* Payment Success Message */}
               {paymentStatus === "success" && (
                 <p className="payment-success">Payment Successful!</p>
               )}
 
-              {/* 🔴 Payment Failed Message */}
+              {/* Payment Failed Message */}
               {paymentStatus === "failed" && (
                 <p className="payment-failed">Payment Failed!</p>
               )}

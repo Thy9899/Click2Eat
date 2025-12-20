@@ -4,9 +4,10 @@ import { AuthContext } from "../../context/AuthContext";
 import "./Sidebar.css";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
-  const { logout } = useContext(AuthContext);
+  const { logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
+  const [openSetting, setOpenSetting] = useState(false);
 
   // Load theme from localStorage
   useEffect(() => {
@@ -24,13 +25,55 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   };
 
   const menuItems = [
-    { name: "Dashboard", path: "/", icon: "bx bx-home" },
-    { name: "Customers", path: "customers", icon: "bx bx-user" },
-    { name: "Payment", path: "payment", icon: "bx bx-wallet" },
-    { name: "Stock", path: "stock", icon: "bx bx-store" },
-    { name: "Order", path: "order", icon: "bx bx-heart" },
-    { name: "Report", path: "report", icon: "bx bx-bar-chart" },
-    { name: "Setting", path: "setting", icon: "bx bx-cog" },
+    {
+      name: "Dashboard",
+      path: "/",
+      icon: "bx bx-home",
+      roles: ["admin", "cashier"],
+    },
+    {
+      name: "Customers",
+      path: "customers",
+      icon: "bx bx-user",
+      roles: ["admin", "cashier", "user"],
+    },
+    {
+      name: "Payment",
+      path: "payment",
+      icon: "bx bx-wallet",
+      roles: ["admin", "cashier", "user"],
+    },
+    {
+      name: "Stock",
+      path: "stock",
+      icon: "bx bx-store",
+      roles: ["admin", "cashier", "user"],
+    },
+    {
+      name: "Order",
+      path: "order",
+      icon: "bx bx-heart",
+      roles: ["admin", "cashier", "user"],
+    },
+    {
+      name: "Report",
+      path: "report",
+      icon: "bx bx-bar-chart",
+      roles: ["admin", "cashier"],
+    },
+    {
+      name: "Setting",
+      path: "setting",
+      icon: "bx bx-cog",
+      roles: ["admin", "cashier", "user"],
+      children: [
+        {
+          name: "Profile",
+          path: "/setting/profile",
+        },
+        { name: "Users", path: "/setting/users" },
+      ],
+    },
   ];
 
   const handleLogout = () => {
@@ -62,19 +105,62 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
       {/* Menu Links */}
       <ul className="menu-links">
-        {menuItems.map((item) => (
-          <li key={item.name}>
-            <NavLink
-              to={item.path}
-              className={({ isActive }) =>
-                `menu-link ${isActive ? "active" : ""}`
-              }
-            >
-              <i className={item.icon}></i>
-              {!collapsed && <span>{item.name}</span>}
-            </NavLink>
-          </li>
-        ))}
+        {menuItems
+          .filter((item) => item.roles.includes(user.role))
+          .map((item) => (
+            <li key={item.name}>
+              {/* ADMIN + SETTING → DROPDOWN */}
+              {item.name === "Setting" &&
+              user.role === "admin" &&
+              item.children ? (
+                <>
+                  <a
+                    className="menu-link setting-dropdown-toggle"
+                    onClick={() => setOpenSetting(!openSetting)}
+                  >
+                    <i className={item.icon}></i>
+                    {!collapsed && <span>{item.name}</span>}
+                    {!collapsed && (
+                      <i
+                        className={`bx bx-chevron-down arrow ${
+                          openSetting ? "rotate" : ""
+                        }`}
+                      ></i>
+                    )}
+                  </a>
+
+                  {openSetting && !collapsed && (
+                    <ul className="submenu">
+                      {item.children.map((sub) => (
+                        <li key={sub.path}>
+                          <NavLink
+                            to={sub.path}
+                            className={({ isActive }) =>
+                              `submenu-link ${isActive ? "active" : ""}`
+                            }
+                          >
+                            <i className="bx  bx-radio-circle"></i>
+                            {sub.name}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              ) : (
+                /* NORMAL LINK (User OR non-setting items) */
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `menu-link ${isActive ? "active" : ""}`
+                  }
+                >
+                  <i className={item.icon}></i>
+                  {!collapsed && <span>{item.name}</span>}
+                </NavLink>
+              )}
+            </li>
+          ))}
       </ul>
 
       {/* Logout */}

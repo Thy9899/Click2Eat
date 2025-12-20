@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -16,8 +16,13 @@ const Login = () => {
     setLoading(true);
 
     try {
-      await login(form.email, form.password);
-      navigate("/");
+      const loggedInUser = await login(form.email, form.password);
+
+      if (["admin", "cashier"].includes(loggedInUser.role)) {
+        navigate("/");
+      } else {
+        navigate("/order");
+      }
     } catch {
       setError("Invalid email or password");
     } finally {
@@ -69,13 +74,7 @@ const Login = () => {
           <button type="submit" className="login-button">
             Login
           </button>
-          {/* <button
-            type="submit"
-            className={`login-button ${loading ? "loading" : ""}`}
-            disabled={loading}
-          >
-            {loading ? "" : "Login"}
-          </button> */}
+
           {loading && <div className="auth-line-loader"></div>}
         </form>
 

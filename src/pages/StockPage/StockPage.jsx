@@ -10,11 +10,11 @@ const API_URL =
   "https://click2eat-backend-product-service.onrender.com/api/products";
 
 const Stock = () => {
-  // 🔐 Get token and user from AuthContext
+  //  Get token and user from AuthContext
   const { token, user } = useContext(AuthContext);
 
   // ==========================
-  // 🔹 COMPONENT STATES
+  //  COMPONENT STATES
   // ==========================
   const [isOpen, setIsOpen] = useState(false); // Form popup
   const [products, setProducts] = useState([]); // All products
@@ -40,7 +40,7 @@ const Stock = () => {
   });
 
   // ==========================
-  // 🔹 FETCH PRODUCTS
+  // FETCH PRODUCTS
   // ==========================
   useEffect(() => {
     fetchProducts();
@@ -58,7 +58,7 @@ const Stock = () => {
   };
 
   // ==========================
-  // 🔹 FORM INPUT HANDLING
+  // FORM INPUT HANDLING
   // ==========================
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,23 +71,25 @@ const Stock = () => {
       const price = parseFloat(updated.price) || 0;
       const discount = parseFloat(updated.discount) || 0;
 
-      const subtotal = price - (price * discount) / 100;
-      const total = qty * subtotal;
+      const unitPrice = price * (1 - discount / 100);
+      const total = qty * unitPrice;
 
-      updated.subtotal = subtotal.toFixed(2);
-      updated.total = total.toFixed(2);
+      updated.subtotal = unitPrice;
+      updated.total = total;
 
       return updated;
     });
   };
 
+  //==========================
   // Handle image file
+  //==========================
   const handleImageChange = (e) => {
     setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
   };
 
   // ==========================
-  // 🔹 SAVE PRODUCT (ADD/EDIT)
+  // SAVE PRODUCT (ADD/EDIT)
   // ==========================
   const handleSave = async () => {
     // Validate fields
@@ -137,7 +139,9 @@ const Stock = () => {
     }
   };
 
+  //==========================
   // Reset form
+  //==========================
   const resetForm = () => {
     setFormData({
       name: "",
@@ -154,7 +158,7 @@ const Stock = () => {
   };
 
   // ==========================
-  // 🔹 EDIT PRODUCT
+  // EDIT PRODUCT
   // ==========================
   const handleEdit = (product) => {
     setFormData({
@@ -174,7 +178,7 @@ const Stock = () => {
   };
 
   // ==========================
-  // 🔹 DELETE PRODUCT
+  // DELETE PRODUCT
   // ==========================
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?"))
@@ -193,7 +197,7 @@ const Stock = () => {
   };
 
   // ==========================
-  // 🔹 SEARCH + PAGINATION
+  // SEARCH + PAGINATION
   // ==========================
   const filteredProducts = products.filter(
     (p) =>
@@ -212,17 +216,12 @@ const Stock = () => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
 
-  // ==========================
-  // 🔹 UI RENDER
-  // ==========================
   return (
     <div>
       <h2>Stock Management</h2>
 
       <div className="content-container">
-        {/* ==========================
-            🔍 SEARCH + ADD PRODUCT
-        =========================== */}
+        {/* ======================== SEARCH + ADD PRODUCT ========================= */}
         <div className="popup-container">
           <div className="search-box d-inline-block me-3">
             <i className="bx bx-search-alt icon"></i>
@@ -247,16 +246,14 @@ const Stock = () => {
             <i className="bx bx-plus"></i> Add New
           </button>
 
-          {/* ==========================
-              📝 POPUP FORM
-          =========================== */}
+          {/* ======================== POPUP FORM ========================= */}
           {isOpen && (
             <div className="popup-overlay" onClick={() => setIsOpen(false)}>
               <div className="popup-box" onClick={(e) => e.stopPropagation()}>
                 <h4>{editId ? "Edit Product" : "Add New Product"}</h4>
 
                 {/* Auto generated fields */}
-                {["name", "category", "quantity"].map((f) => (
+                {/* {["name", "category", "quantity"].map((f) => (
                   <div className="mb-3 text-start" key={f}>
                     <label className="form-label text-capitalize">{f}:</label>
                     <input
@@ -267,7 +264,49 @@ const Stock = () => {
                       onChange={handleChange}
                     />
                   </div>
-                ))}
+                ))} */}
+
+                {/* Name */}
+                <div className="mb-3 text-start">
+                  <label className="form-label">Product Name:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                {/* Category */}
+                <div className="mb-3 text-start">
+                  <label className="form-label">Category:</label>
+                  <select
+                    className="form-select"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                  >
+                    <option value="">-- Select Category --</option>
+                    <option value="Burger">Burger</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Pizza">Pizza</option>
+                    <option value="Coffee">Coffee</option>
+                    <option value="Drinks">Drinks</option>
+                  </select>
+                </div>
+
+                {/* Quantity */}
+                <div className="mb-3 text-start">
+                  <label className="form-label">Quantity:</label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    name="quantity"
+                    value={formData.quantity}
+                    onChange={handleChange}
+                  />
+                </div>
 
                 {/* Description */}
                 <div className="mb-3 text-start">
@@ -333,7 +372,7 @@ const Stock = () => {
                   <input
                     type="text"
                     className="form-control"
-                    value={`$${formData.subtotal}`}
+                    value={`$${formData.subtotal.toFixed(2)}`}
                     readOnly
                   />
                 </div>
@@ -343,7 +382,7 @@ const Stock = () => {
                   <input
                     type="text"
                     className="form-control"
-                    value={`$${formData.total}`}
+                    value={`$${formData.total.toFixed(2)}`}
                     readOnly
                   />
                 </div>
@@ -367,9 +406,7 @@ const Stock = () => {
           )}
         </div>
 
-        {/* ==========================
-            📦 PRODUCTS TABLE
-        =========================== */}
+        {/* ======================== PRODUCTS TABLE ========================= */}
         {loading ? (
           <div className="spinner-border text-info spinner-center"></div>
         ) : (
@@ -407,8 +444,8 @@ const Stock = () => {
                   <td>{p.quantity}</td>
                   <td>${p.price}</td>
                   <td>{p.discount}%</td>
-                  <td>${p.unit_price}</td>
-                  <td>${p.total}</td>
+                  <td>${p.unit_price.toFixed(2)}</td>
+                  <td>${p.total.toFixed(2)}</td>
                   <td>{p.created_by || "—"}</td>
 
                   <td>
@@ -440,9 +477,7 @@ const Stock = () => {
           </table>
         )}
 
-        {/* ==========================
-            📄 PAGINATION
-        =========================== */}
+        {/* ======================== PAGINATION ========================= */}
         <div className="pagination-container mt-3">
           <ul className="pagination">
             <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>

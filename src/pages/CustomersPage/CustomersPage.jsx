@@ -12,7 +12,7 @@ const CustomersPage = () => {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const token = localStorage.getItem("token"); // <-- get your JWT token
+        const token = localStorage.getItem("token");
         const res = await fetch(
           "https://click2eat-backend-customer-service.onrender.com/api/customers/customer",
           {
@@ -65,9 +65,6 @@ const CustomersPage = () => {
     }
   };
 
-  // if (loading) return <p>Loading customers...</p>;
-  // if (!customers.length) return <p>No customers found.</p>;
-
   return (
     <div>
       <h2>Customers</h2>
@@ -86,7 +83,7 @@ const CustomersPage = () => {
         </div>
 
         {/* ==========================
-            📦 PRODUCTS TABLE
+            PRODUCTS TABLE
         =========================== */}
         {loading ? (
           <div className="spinner-border text-info spinner-center"></div>

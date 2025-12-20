@@ -1,5 +1,11 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"); */
+/* ==============================
+   GOOGLE FONTS
+================================ */
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500&display=swap"); */
 
+/* ==============================
+   ROOT VARIABLES
+================================ */
 :root {
   /* Color Palette */
   --body-color: #e4e9f7;
@@ -16,6 +22,9 @@
   --tran-05: all 0.5s ease;
 }
 
+/* ==============================
+   SIDEBAR
+================================ */
 .sidebar {
   position: fixed;
   top: 0;
@@ -31,11 +40,16 @@
   border-radius: 20px;
 }
 
-/* ======sidebar Header ======*/
-.sidebar-logo img {
-  max-width: 70px;
-  height: 70px;
-  margin-right: 10px;
+.sidebar.collapsed {
+  width: 90px;
+  transition: var(--tran-05);
+}
+
+/* ==============================
+   SIDEBAR HEADER
+================================ */
+.sidebar header {
+  position: relative;
 }
 
 .sidebar-logo {
@@ -46,8 +60,10 @@
   font-size: 18px;
 }
 
-.sidebar header {
-  position: relative;
+.sidebar-logo img {
+  max-width: 70px;
+  height: 70px;
+  margin-right: 10px;
 }
 
 /* =====Sidebar Toggle===== */
@@ -73,11 +89,6 @@
   transform: translateY(-50%) rotate(180deg);
 }
 
-.sidebar.collapsed {
-  width: 90px;
-  transition: var(--tran-05);
-}
-
 .sidebar.collapsed .text {
   opacity: 0;
 }
@@ -91,6 +102,9 @@
   transform: rotate(180deg);
 }
 
+/* ==============================
+   MENU LINKS
+================================ */
 .menu-links {
   list-style: none;
   padding: 0;
@@ -125,7 +139,51 @@
   color: #fff;
 }
 
-/* ===== Bottom Content ===== */
+/* ==============================
+   DROPDOWN MENU
+================================ */
+.setting-dropdown-toggle {
+  cursor: pointer;
+}
+
+ul.submenu {
+  padding: 0;
+}
+
+.submenu {
+  list-style: none;
+}
+
+.submenu i {
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.submenu li a {
+  padding: 10px 30px;
+  font-size: 14px;
+}
+
+.submenu-link.active {
+  color: #fff;
+}
+
+.arrow {
+  margin-left: auto;
+  transition: transform 0.3s;
+}
+
+.arrow.rotate {
+  transform: rotate(180deg);
+}
+
+.sidebar.collapsed .submenu i {
+  margin-left: 0;
+}
+
+/* ==============================
+   BOTTOM CONTENT
+================================ */
 .bottom-content {
   position: absolute;
   bottom: 20px;
@@ -198,8 +256,9 @@
   transition: all 0.5s ease;
 }
 
-/* ===== Dark Mode Styles ===== */
-
+/* ==============================
+   DARK MODE
+================================ */
 body.dark-mode {
   --body-color: #18191a;
   --sidebar-color: #242526;
@@ -267,9 +326,18 @@ body.dark-mode .main-content {
   color: var(--text-color);
 }
 
-/* ==================
------Stock Table----- 
-=====================*/
+/* -----Dashboard----- */
+body.dark-mode .chart-card {
+  background: var(--sidebar-color);
+  color: var(--text-color);
+  box-shadow: 0 2px 10px rgba(233, 233, 233, 0.08);
+}
+
+body.dark-mode .chart-title {
+  color: var(--text-color);
+}
+
+/* -----Stock Table----- */
 body.dark-mode .stock-table th {
   background: var(--primary-color);
   color: var(--text-color);
@@ -290,9 +358,7 @@ body.dark-mode .pagination-container button {
   color: var(--text-color);
 }
 
-/* ==================
------Stock Popup----- 
-=====================*/
+/* -----Stock Popup----- */
 body.dark-mode .popup-box {
   background: var(--sidebar-color);
   color: var(--text-color);
@@ -308,7 +374,54 @@ body.dark-mode .popup-box textarea {
   color: var(--text-color);
 }
 
-/* Setting */
+/* -----Report----- */
+body.dark-mode .report-filter {
+  background: var(--sidebar-color);
+  color: var(--text-color);
+  box-shadow: 0 2px 10px rgba(233, 233, 233, 0.08);
+}
+
+body.dark-mode .report-filter input {
+  background: var(--sidebar-color);
+  color: var(--text-color);
+}
+
+body.dark-mode .report-filter select {
+  background: var(--sidebar-color);
+  color: var(--text-color);
+}
+
+body.dark-mode .report-filter label {
+  color: var(--text-color);
+}
+
+body.dark-mode .report-card {
+  background: var(--sidebar-color);
+  color: var(--text-color);
+  box-shadow: 0 2px 10px rgba(233, 233, 233, 0.08);
+}
+
+body.dark-mode .report-card h4 {
+  color: var(--text-color);
+}
+
+body.dark-mode .report-card p {
+  color: var(--text-color);
+}
+
+body.dark-mode .report-table {
+  background: var(--sidebar-color);
+  color: var(--text-color);
+  box-shadow: 0 2px 10px rgba(233, 233, 233, 0.08);
+}
+
+body.dark-mode .report-table th {
+  background: #4f4f4f;
+  color: var(--text-color);
+  box-shadow: 0 2px 10px rgba(233, 233, 233, 0.08);
+}
+
+/* -----Setting----- */
 body.dark-mode .set-card-info {
   background: var(--sidebar-color);
   color: var(--text-color);
@@ -344,25 +457,47 @@ body.dark-mode .set-card-pass .text-box {
   color: var(--text-color);
   border-bottom: 1px solid #ffffff;
 }
-/* Dashboard */
-body.dark-mode .recent-box {
+
+/* -----User----- */
+body.dark-mode .user-search input {
   background: var(--sidebar-color);
   color: var(--text-color);
-  box-shadow: 0 2px 10px rgba(233, 233, 233, 0.08);
 }
 
-body.dark-mode .sale-chart {
+body.dark-mode .filters select {
   background: var(--sidebar-color);
   color: var(--text-color);
-  box-shadow: 0 2px 10px rgba(233, 233, 233, 0.08);
 }
 
-body.dark-mode .stat-card {
+body.dark-mode .user-table {
   background: var(--sidebar-color);
   color: var(--text-color);
-  box-shadow: 0 2px 10px rgba(233, 233, 233, 0.08);
 }
 
-body.dark-mode .stat-card h3 {
-  color: #fff;
+body.dark-mode .drawer {
+  background: var(--sidebar-color);
+  color: var(--text-color);
+}
+
+body.dark-mode .drawer h3,
+.drawer label {
+  color: var(--text-color);
+}
+
+body.dark-mode .drawer label {
+  color: var(--text-color);
+}
+
+body.dark-mode .drawer input {
+  background: var(--sidebar-color);
+  color: var(--text-color);
+}
+
+body.dark-mode .drawer select {
+  background: var(--sidebar-color);
+  color: var(--text-color);
+}
+
+body.dark-mode .toggle span {
+  color: var(--text-color);
 }

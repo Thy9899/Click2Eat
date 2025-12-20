@@ -10,7 +10,10 @@ const OrderPage = () => {
   // -----------------------------
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [processingId, setProcessingId] = useState(null);
+  const [processing, setProcessing] = useState({
+    orderId: null,
+    action: null, // "confirm" | "cancel"
+  });
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -63,7 +66,7 @@ const OrderPage = () => {
   // CONFIRM ORDER
   // -----------------------------
   const handleConfirmOrder = async (orderId) => {
-    setProcessingId(orderId);
+    setProcessing({ orderId, action: "confirm" });
 
     try {
       await axios.put(
@@ -78,7 +81,7 @@ const OrderPage = () => {
       console.error("Confirm error:", err);
       toast.error("Failed to confirm order.");
     } finally {
-      setProcessingId(null);
+      setProcessing({ orderId: null, action: null });
     }
   };
 
@@ -86,7 +89,7 @@ const OrderPage = () => {
   // CANCEL ORDER
   // -----------------------------
   const handleCancelOrder = async (orderId) => {
-    setProcessingId(orderId);
+    setProcessing({ orderId, action: "cancel" });
 
     try {
       await axios.put(
@@ -101,7 +104,7 @@ const OrderPage = () => {
       console.error("Cancel error:", err);
       toast.error("Failed to cancel order.");
     } finally {
-      setProcessingId(null);
+      setProcessing({ orderId: null, action: null });
     }
   };
 
@@ -179,6 +182,7 @@ const OrderPage = () => {
           <table className="stock-table">
             <thead>
               <tr>
+                <th>No</th>
                 <th>Order ID</th>
                 <th>Customer</th>
                 <th>Status</th>
@@ -187,12 +191,13 @@ const OrderPage = () => {
                 <th>Payment Method</th>
                 <th>Shipping Address</th>
                 <th>Items</th>
+                <th>Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
 
             <tbody>
-              {currentItems.map((order) => {
+              {currentItems.map((order, index) => {
                 // Ensure shipping address is an object
                 let address = order.shipping_address;
                 try {
@@ -205,6 +210,7 @@ const OrderPage = () => {
 
                 return (
                   <tr key={order._id}>
+                    <td>{startIndex + index + 1}</td>
                     <td>{order._id}</td>
                     <td>{address?.fullName ?? "-"}</td>
                     <td>{order.status}</td>
@@ -214,7 +220,7 @@ const OrderPage = () => {
                     <td>
                       {address
                         ? `${address.line1 ?? ""}${
-                            address.city ? ", " + address.city : ""
+                            address.city ? "" + address.city : ""
                           }`
                         : "-"}
                     </td>
@@ -223,36 +229,39 @@ const OrderPage = () => {
                         ? `${order.items.length} Items`
                         : "-"}
                     </td>
+                    <td>{new Date(order.createdAt).toLocaleString()}</td>
 
                     <td>
                       {order.status === "pending" ? (
-                        <>
-                          <div className="action-btn">
-                            <button
-                              onClick={() => handleConfirmOrder(order._id)}
-                              className="confirm-btn"
-                              disabled={processingId === order._id}
-                            >
-                              {processingId === order._id ? (
-                                "Processing..."
-                              ) : (
-                                <i class="bx  bx-check"></i>
-                              )}
-                            </button>
+                        <div className="order-action-btn">
+                          {/* CONFIRM BUTTON */}
+                          <button
+                            onClick={() => handleConfirmOrder(order._id)}
+                            className={`order-confirm-btn ${
+                              processing.orderId === order._id &&
+                              processing.action === "confirm"
+                                ? "loading"
+                                : ""
+                            }`}
+                            disabled={processing.orderId === order._id}
+                          >
+                            <i className="bx bx-check"></i>
+                          </button>
 
-                            <button
-                              onClick={() => handleCancelOrder(order._id)}
-                              className="cancel-btn"
-                              disabled={processingId === order._id}
-                            >
-                              {processingId === order._id ? (
-                                "Processing..."
-                              ) : (
-                                <i class="bx  bx-x"></i>
-                              )}
-                            </button>
-                          </div>
-                        </>
+                          {/* CANCEL BUTTON */}
+                          <button
+                            onClick={() => handleCancelOrder(order._id)}
+                            className={`order-cancel-btn ${
+                              processing.orderId === order._id &&
+                              processing.action === "cancel"
+                                ? "loading"
+                                : ""
+                            }`}
+                            disabled={processing.orderId === order._id}
+                          >
+                            <i className="bx bx-x"></i>
+                          </button>
+                        </div>
                       ) : (
                         <span>
                           {order.status.charAt(0).toUpperCase() +
