@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from "react";
-import "./Users.css";
+import "./UsersPage.css";
 import { AuthContext } from "../../context/AuthContext";
 
-const Users = () => {
+const UsersPage = () => {
   const { admins, fetchAdmins, register, loading, error } =
     useContext(AuthContext);
 
@@ -113,7 +113,7 @@ const Users = () => {
         <div>
           {loading ? (
             // SHOW LOADING SPINNER
-            <div className="spinner-border text-info spinner-center"></div>
+            <div className="spinner-border text-info spinner-center user"></div>
           ) : error ? (
             <p className="error">{error}</p>
           ) : (
@@ -248,4 +248,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default UsersPage;

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import React, { useState, useEffect, useContext } from "react";
+import { useOrders } from "../../context/OrderContext";
+import { AuthContext } from "../../context/AuthContext";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./OrderPage.css";
 
@@ -8,51 +9,29 @@ const OrderPage = () => {
   // -----------------------------
   // STATE
   // -----------------------------
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [processing, setProcessing] = useState({
-    orderId: null,
-    action: null, // "confirm" | "cancel"
-  });
+  const {
+    orders,
+    loading,
+    processing,
+    confirmOrder,
+    cancelOrder,
+    fetchOrders,
+  } = useOrders();
 
-  // Pagination
+  const { user, token } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (user && token) {
+      fetchOrders();
+    }
+  }, [user, token]);
+
+  // -----------------------------
+  // Pagination + Search term
+  // -----------------------------
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
-  // Search term
   const [searchTerm, setSearchTerm] = useState("");
-
-  // Token for authentication
-  const token = localStorage.getItem("token");
-
-  const axiosConfig = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-
-  // -----------------------------
-  // FETCH ORDERS
-  // -----------------------------
-  const fetchOrders = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(
-        "https://click2eat-backend-order-service.onrender.com/api/order/admin",
-        axiosConfig
-      );
-
-      setOrders(res.data.list || []);
-    } catch (err) {
-      console.error("fetchOrders error:", err);
-      toast.error("Failed to fetch orders.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Fetch on mount
-  useEffect(() => {
-    fetchOrders();
-  }, []);
 
   // -----------------------------
   // FORMAT MONEY
@@ -61,52 +40,6 @@ const OrderPage = () => {
     val != null && !Number.isNaN(Number(val))
       ? `$${Number(val).toFixed(2)}`
       : "-";
-
-  // -----------------------------
-  // CONFIRM ORDER
-  // -----------------------------
-  const handleConfirmOrder = async (orderId) => {
-    setProcessing({ orderId, action: "confirm" });
-
-    try {
-      await axios.put(
-        `https://click2eat-backend-order-service.onrender.com/api/order/admin/confirm/${orderId}`,
-        {},
-        axiosConfig
-      );
-
-      toast.success("Order confirmed!");
-      await fetchOrders();
-    } catch (err) {
-      console.error("Confirm error:", err);
-      toast.error("Failed to confirm order.");
-    } finally {
-      setProcessing({ orderId: null, action: null });
-    }
-  };
-
-  // -----------------------------
-  // CANCEL ORDER
-  // -----------------------------
-  const handleCancelOrder = async (orderId) => {
-    setProcessing({ orderId, action: "cancel" });
-
-    try {
-      await axios.put(
-        `https://click2eat-backend-order-service.onrender.com/api/order/admin/cancel/${orderId}`,
-        {},
-        axiosConfig
-      );
-
-      toast.info("Order cancelled.");
-      await fetchOrders();
-    } catch (err) {
-      console.error("Cancel error:", err);
-      toast.error("Failed to cancel order.");
-    } finally {
-      setProcessing({ orderId: null, action: null });
-    }
-  };
 
   // -----------------------------
   // SEARCH FILTER LOGIC
@@ -236,7 +169,7 @@ const OrderPage = () => {
                         <div className="order-action-btn">
                           {/* CONFIRM BUTTON */}
                           <button
-                            onClick={() => handleConfirmOrder(order._id)}
+                            onClick={() => confirmOrder(order._id)}
                             className={`order-confirm-btn ${
                               processing.orderId === order._id &&
                               processing.action === "confirm"
@@ -250,7 +183,7 @@ const OrderPage = () => {
 
                           {/* CANCEL BUTTON */}
                           <button
-                            onClick={() => handleCancelOrder(order._id)}
+                            onClick={() => cancelOrder(order._id)}
                             className={`order-cancel-btn ${
                               processing.orderId === order._id &&
                               processing.action === "cancel"

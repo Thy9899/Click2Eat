@@ -1,0 +1,191 @@
+/* ================================
+   RECEIPT PAGE STYLES
+================================ */
+.receipt-container {
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.receipt-header {
+  display: flex;
+}
+
+/* ================================
+   PRINT BUTTON
+================================ */
+.print-btn {
+  background: #2c7be5;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  right: 0;
+}
+
+.print-btn:hover {
+  background: #1a68d1;
+}
+
+/* ================================
+   RECEIPT DETAIL
+================================ */
+.receipt-detail {
+  margin-top: 20px;
+  border-top: 2px dashed #ccc;
+  padding-top: 20px;
+}
+
+.receipt-detail h3 {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 22px;
+}
+
+/* ================================
+   ORDER INFO
+================================ */
+.not-search {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.receipt-detail p {
+  margin: 4px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.receipt-detail strong {
+  min-width: 130px;
+  display: inline-block;
+}
+
+/* ================================
+   ITEMS TABLE
+================================ */
+.receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  font-size: 16px;
+}
+
+.receipt-table th,
+.receipt-table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.receipt-table th {
+  background: #5ac2c0;
+  color: white;
+  /* background-color: #f5f5f5; */
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.receipt-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ================================
+   SUMMARY TABLE
+================================ */
+.summary-table {
+  width: 100%;
+  max-width: 380px;
+  margin-left: auto;
+  margin-top: 18px;
+  border-collapse: collapse;
+}
+
+.summary-table td {
+  padding: 10px 12px;
+  font-size: 16px;
+  color: #374151;
+}
+
+.summary-table tr td:last-child {
+  text-align: right;
+}
+
+.summary-table tr:not(:last-child) td {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.summary-total td {
+  font-weight: 700;
+  font-size: 16px;
+  color: #111827;
+  border-top: 2px solid #e5e7eb;
+}
+
+/* ================================
+   STATUS COLORS
+================================ */
+.receipt-detail p strong + span {
+  font-weight: bold;
+}
+
+.status-success {
+  color: green;
+}
+
+.status-pending {
+  color: orange;
+}
+
+.status-cancelled {
+  color: red;
+}
+
+/* ================================
+   PRINT STYLES
+================================ */
+@media print {
+  body * {
+    visibility: hidden; /* hide everything */
+  }
+
+  .print-area,
+  .print-area * {
+    visibility: visible; /* show receipt */
+  }
+
+  .print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Optional: remove shadows/borders for print */
+  .receipt-container {
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  /* hide print/search buttons */
+  .print-btn,
+  .search-box,
+  h2 {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    color: #000;
+  }
+}

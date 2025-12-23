@@ -250,142 +250,155 @@ const Stock = () => {
           {isOpen && (
             <div className="popup-overlay" onClick={() => setIsOpen(false)}>
               <div className="popup-box" onClick={(e) => e.stopPropagation()}>
-                <h4>{editId ? "Edit Product" : "Add New Product"}</h4>
+                {/* Header */}
+                <div class="product-form-header">
+                  <h4>{editId ? "Edit Product" : "ADD NEW PRODUCT"}</h4>
+                </div>
 
-                {/* Auto generated fields */}
-                {/* {["name", "category", "quantity"].map((f) => (
-                  <div className="mb-3 text-start" key={f}>
-                    <label className="form-label text-capitalize">{f}:</label>
-                    <input
-                      type={f === "quantity" ? "number" : "text"}
-                      className="form-control"
-                      name={f}
-                      value={formData[f]}
-                      onChange={handleChange}
-                    />
+                {/* FORM GRID */}
+                <form className="product-form">
+                  {/* LEFT COLUMN */}
+                  <div className="product-form-left">
+                    {/* Name */}
+                    <div className="mb-3 text-start">
+                      <label className="form-label">
+                        Product Name <span>*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Quantity */}
+                    <div className="mb-3 text-start">
+                      <label className="form-label">
+                        Quantity <span>*</span>
+                      </label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="quantity"
+                        value={formData.quantity}
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Price */}
+                    <div className="mb-3 text-start">
+                      <label className="form-label">
+                        Price ($) <span>*</span>
+                      </label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="price"
+                        value={formData.price}
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    {/* Discount */}
+                    <div className="mb-3 text-start">
+                      <label className="form-label">Discount (%):</label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="discount"
+                        value={formData.discount}
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
-                ))} */}
 
-                {/* Name */}
-                <div className="mb-3 text-start">
-                  <label className="form-label">Product Name:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
-                </div>
+                  {/* RIGHT COLUMN */}
+                  <div className="product-form-right">
+                    {/* Category */}
+                    <div className="mb-3 text-start">
+                      <label className="form-label">
+                        Category <span>*</span>
+                      </label>
+                      <select
+                        className="form-select"
+                        name="category"
+                        value={formData.category}
+                        onChange={handleChange}
+                      >
+                        <option value="">-- Select Category --</option>
+                        <option value="Burger">Burger</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Pizza">Pizza</option>
+                        <option value="Coffee">Coffee</option>
+                        <option value="Drinks">Drinks</option>
+                      </select>
+                    </div>
 
-                {/* Category */}
-                <div className="mb-3 text-start">
-                  <label className="form-label">Category:</label>
-                  <select
-                    className="form-select"
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                  >
-                    <option value="">-- Select Category --</option>
-                    <option value="Burger">Burger</option>
-                    <option value="Dessert">Dessert</option>
-                    <option value="Pizza">Pizza</option>
-                    <option value="Coffee">Coffee</option>
-                    <option value="Drinks">Drinks</option>
-                  </select>
-                </div>
+                    {/* Description */}
+                    <div className="mb-3 text-start">
+                      <label className="form-label">
+                        Description <span>*</span>
+                      </label>
+                      <textarea
+                        className="form-control"
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                      />
+                    </div>
 
-                {/* Quantity */}
-                <div className="mb-3 text-start">
-                  <label className="form-label">Quantity:</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    name="quantity"
-                    value={formData.quantity}
-                    onChange={handleChange}
-                  />
-                </div>
+                    {/* Image */}
+                    <div className="mb-3 text-start">
+                      <label className="form-label">Image:</label>
+                      <input
+                        type="file"
+                        className="form-control"
+                        onChange={handleImageChange}
+                      />
 
-                {/* Description */}
-                <div className="mb-3 text-start">
-                  <label className="form-label">Description:</label>
-                  <textarea
-                    className="form-control"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                  />
-                </div>
+                      {formData.image && (
+                        <img
+                          src={
+                            typeof formData.image === "string"
+                              ? `${formData.image}`
+                              : URL.createObjectURL(formData.image)
+                          }
+                          alt="preview"
+                          width="100"
+                          className="mt-2"
+                        />
+                      )}
+                    </div>
+                  </div>
 
-                {/* Price */}
-                <div className="mb-3 text-start">
-                  <label className="form-label">Price ($):</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    name="price"
-                    value={formData.price}
-                    onChange={handleChange}
-                  />
-                </div>
+                  {/* FULL WIDTH */}
+                  <div className="full-width">
+                    <hr />
 
-                {/* Discount */}
-                <div className="mb-3 text-start">
-                  <label className="form-label">Discount (%):</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    name="discount"
-                    value={formData.discount}
-                    onChange={handleChange}
-                  />
-                </div>
+                    {/* Calculated fields */}
+                    <div className="mb-3 text-start">
+                      <label className="form-label">Subtotal:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={`$${formData.subtotal.toFixed(2)}`}
+                        readOnly
+                      />
+                    </div>
 
-                {/* Image */}
-                <div className="mb-3 text-start">
-                  <label className="form-label">Image:</label>
-                  <input
-                    type="file"
-                    className="form-control"
-                    onChange={handleImageChange}
-                  />
-
-                  {formData.image && (
-                    <img
-                      src={
-                        typeof formData.image === "string"
-                          ? `${formData.image}`
-                          : URL.createObjectURL(formData.image)
-                      }
-                      alt="preview"
-                      width="100"
-                      className="mt-2"
-                    />
-                  )}
-                </div>
-
-                {/* Calculated fields */}
-                <div className="mb-3 text-start">
-                  <label className="form-label">Subtotal:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={`$${formData.subtotal.toFixed(2)}`}
-                    readOnly
-                  />
-                </div>
-
-                <div className="mb-3 text-start">
-                  <label className="form-label">Total:</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={`$${formData.total.toFixed(2)}`}
-                    readOnly
-                  />
-                </div>
+                    <div className="mb-3 text-start">
+                      <label className="form-label">Total:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={`$${formData.total.toFixed(2)}`}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                </form>
 
                 {/* Buttons */}
                 <div className="d-flex justify-content-between">
@@ -396,9 +409,20 @@ const Stock = () => {
                     X
                   </button>
 
-                  <button className="btn btn-primary" onClick={handleSave}>
-                    <i className={editId ? "bx bx-edit-alt" : "bx bx-save"}></i>
-                    {editId ? "Update" : "Save"}
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={handleSave}
+                    disabled={loading}
+                  >
+                    <i className={editId ? "bx bx-edit-alt" : "bx bx-save"}></i>{" "}
+                    {loading
+                      ? editId
+                        ? "Updating..."
+                        : "Saving..."
+                      : editId
+                      ? "Update"
+                      : "Save"}
                   </button>
                 </div>
               </div>

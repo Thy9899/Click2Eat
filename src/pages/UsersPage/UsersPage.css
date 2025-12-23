@@ -301,6 +301,14 @@
   cursor: not-allowed;
 }
 
+/* -----------------------------------
+   Spinner container centered in page
+----------------------------------- */
+.spinner-center.user {
+  /* margin-top: 21%; */
+  margin-bottom: 23.5%;
+}
+
 /* ==============================
    ANIMATION
 ================================ */

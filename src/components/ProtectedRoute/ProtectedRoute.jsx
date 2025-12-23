@@ -18,7 +18,7 @@ const ProtectedRoute = ({ children, roles }) => {
     }
 
     // All other roles → default redirect
-    return <Navigate to="/order" replace />;
+    return <Navigate to="/order/view-order" replace />;
   }
 
   return children;

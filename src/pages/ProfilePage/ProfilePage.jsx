@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import "./Setting.css";
+import "./ProfilePage.css";
 
-const Setting = () => {
+const ProfilePage = () => {
   const { user, setUser } = useContext(AuthContext);
   const adminId = user?.admin_id;
 
@@ -25,6 +25,7 @@ const Setting = () => {
   // =================================
   // UPDATE USER INFORMATION
   // =================================
+  // Handle input change
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -67,7 +68,7 @@ const Setting = () => {
       const updatedAdmin = { ...user, ...data.admin };
 
       setUser(updatedAdmin);
-      localStorage.setItem("admin", JSON.stringify(updatedAdmin));
+      localStorage.setItem("user", JSON.stringify(updatedAdmin));
 
       setMessage("✅ Profile updated successfully!");
       setShowEditPerDe(false);
@@ -81,6 +82,7 @@ const Setting = () => {
   // =================================
   // UPDATE USER PASSWORD
   // =================================
+  // Change password
   const handleChangePassword = async () => {
     setLoading(true);
     setMessage("");
@@ -137,9 +139,9 @@ const Setting = () => {
 
   return (
     <div className="setting-container">
-      <h2>Setting</h2>
+      <h2>Profile</h2>
 
-      {/* ========================== PERSONAL INFO ========================== */}
+      {/* ---------------- PERSONAL INFO ---------------- */}
       <div className="set-card-info">
         <div className="set-card-header">
           <h3>Personal Information</h3>
@@ -229,7 +231,7 @@ const Setting = () => {
         )}
       </div>
 
-      {/* ========================== PASSWORD CHANGE ========================== */}
+      {/* --------------- PASSWORD CHANGE --------------- */}
       <div className="set-card-pass">
         <div className="set-card-header">
           <h3>Change Password</h3>
@@ -305,4 +307,4 @@ const Setting = () => {
   );
 };
 
-export default Setting;
+export default ProfilePage;

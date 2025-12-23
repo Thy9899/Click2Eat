@@ -1,11 +1,9 @@
 /* Container */
-/* .dashboard-container {
-  max-width: 1200px;
-  margin: 30px auto;
-  padding: 0 20px;
-  font-family: "Inter", sans-serif;
-  color: #333;
-} */
+.dashboard-container {
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
 /* Grid layout */
 .chart-grid {
@@ -57,6 +55,14 @@
 
 .error {
   color: #e74a3b;
+}
+
+/* -----------------------------------
+   Spinner container centered in page
+----------------------------------- */
+.spinner-center.dashboard {
+  margin-top: 21%;
+  margin-bottom: 23.5%;
 }
 
 /* Responsive tweaks */

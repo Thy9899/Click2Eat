@@ -21,7 +21,7 @@ const Login = () => {
       if (["admin", "cashier"].includes(loggedInUser.role)) {
         navigate("/");
       } else {
-        navigate("/order");
+        navigate("/order/view-order");
       }
     } catch {
       setError("Invalid email or password");

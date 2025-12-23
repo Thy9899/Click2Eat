@@ -176,7 +176,7 @@ const ReportPage = () => {
         {/* LOADING SPINNER */}
         {loading ? (
           // SHOW LOADING SPINNER
-          <div className="spinner-border text-info spinner-center"></div>
+          <div className="spinner-border text-info spinner-center dashboard"></div>
         ) : error ? (
           <p className="error">{error}</p>
         ) : (

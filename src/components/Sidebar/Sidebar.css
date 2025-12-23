@@ -142,7 +142,8 @@
 /* ==============================
    DROPDOWN MENU
 ================================ */
-.setting-dropdown-toggle {
+.setting-dropdown-toggle,
+.order-dropdown-toggle {
   cursor: pointer;
 }
 
@@ -474,6 +475,11 @@ body.dark-mode .user-table {
   color: var(--text-color);
 }
 
+body.dark-mode .user-table th {
+  background: #4f4f4f;
+  color: var(--text-color);
+}
+
 body.dark-mode .drawer {
   background: var(--sidebar-color);
   color: var(--text-color);
@@ -499,5 +505,19 @@ body.dark-mode .drawer select {
 }
 
 body.dark-mode .toggle span {
+  color: var(--text-color);
+}
+
+/* -----Receipt----- */
+body.dark-mode .receipt-detail p {
+  color: var(--text-color);
+}
+
+body.dark-mode .receipt-table th {
+  background: #4f4f4f;
+  color: var(--text-color);
+}
+
+body.dark-mode .summary-table td {
   color: var(--text-color);
 }

@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import "./Profile.css";
+import "./SettingPage.css";
 
-const Profile = () => {
+const SettingPage = () => {
   const { user, setUser } = useContext(AuthContext);
   const adminId = user?.admin_id;
 
@@ -25,7 +25,6 @@ const Profile = () => {
   // =================================
   // UPDATE USER INFORMATION
   // =================================
-  // Handle input change
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -68,7 +67,7 @@ const Profile = () => {
       const updatedAdmin = { ...user, ...data.admin };
 
       setUser(updatedAdmin);
-      localStorage.setItem("user", JSON.stringify(updatedAdmin));
+      localStorage.setItem("admin", JSON.stringify(updatedAdmin));
 
       setMessage("✅ Profile updated successfully!");
       setShowEditPerDe(false);
@@ -82,7 +81,6 @@ const Profile = () => {
   // =================================
   // UPDATE USER PASSWORD
   // =================================
-  // Change password
   const handleChangePassword = async () => {
     setLoading(true);
     setMessage("");
@@ -139,9 +137,9 @@ const Profile = () => {
 
   return (
     <div className="setting-container">
-      <h2>Profile</h2>
+      <h2>Setting</h2>
 
-      {/* ---------------- PERSONAL INFO ---------------- */}
+      {/* ========================== PERSONAL INFO ========================== */}
       <div className="set-card-info">
         <div className="set-card-header">
           <h3>Personal Information</h3>
@@ -231,7 +229,7 @@ const Profile = () => {
         )}
       </div>
 
-      {/* --------------- PASSWORD CHANGE --------------- */}
+      {/* ========================== PASSWORD CHANGE ========================== */}
       <div className="set-card-pass">
         <div className="set-card-header">
           <h3>Change Password</h3>
@@ -307,4 +305,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default SettingPage;

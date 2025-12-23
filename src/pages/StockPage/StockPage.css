@@ -65,6 +65,9 @@
   color: #fff;
 }
 
+/* ===============================
+   POPUP
+=============================== */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -76,23 +79,47 @@
   justify-content: center;
   align-items: center;
   z-index: 100;
-  /* overflow: hidden; */
 }
 
 .popup-box {
   position: relative;
   background: white;
-  padding: 20px;
-  border-radius: 8px;
-  min-width: 350px;
-  max-width: 400px;
-  text-align: center;
+  padding: 25px;
+  border-radius: 10px;
+  width: 900px;
+  max-width: 95%;
 }
 
-.title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 15px;
+.product-form-header {
+  margin-bottom: 20px;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+}
+
+.product-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.product-form-left,
+.product-form-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-start span {
+  color: red;
+}
+
+.text-start img {
+  border: 1px solid #5ac2c0;
+  border-radius: 10px;
 }
 
 .close-btn {
@@ -107,19 +134,19 @@
   width: 100px;
 }
 
-.pagination-container {
-  margin-top: 20px;
-  display: flex;
-  justify-content: end;
-  height: 35px;
+.btn-primary i {
+  margin-right: 5px;
 }
 
-/* =====Table===== */
+/* ===============================
+   TABLE
+=============================== */
 /* -----Basic Styling----- */
 .stock-table {
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
+  /* table-layout: fixed; */
 }
 
 .stock-table th {
@@ -197,4 +224,60 @@
 .form-select:disabled {
   background-color: #f8f9fa;
   cursor: not-allowed;
+}
+
+/* ===============================
+   PAGINATION
+=============================== */
+.pagination-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: end;
+  height: 35px;
+}
+
+@media (max-width: 1425px) {
+  .stock-table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  /* .stock-table th,
+  .stock-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } */
+
+  /* Apply only to cells that are NOT the first or second column */
+  .stock-table th:not(:last-child),
+  .stock-table td:not(:last-child) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+
+  /* .stock-table th:not(:nth-child(1)):not(:nth-child(2)),
+  .stock-table td:not(:nth-child(1)):not(:nth-child(2)) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: 1px solid #ccc;
+    padding: 8px;
+  } */
+
+  /* Target the 2nd row only */
+  /* .stock-table tr:nth-child(2) td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } */
+
+  /* Optional: set widths for that row */
+  /* .stock-table tr:nth-child(2) td:nth-child(1) { width: 30%; }
+  .stock-table tr:nth-child(2) td:nth-child(2) { width: 70%; } */
 }

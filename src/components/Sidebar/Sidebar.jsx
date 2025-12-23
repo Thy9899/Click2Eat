@@ -8,6 +8,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const [openSetting, setOpenSetting] = useState(false);
+  const [openOrder, setOpenOrder] = useState(user.role === "user");
 
   // Load theme from localStorage
   useEffect(() => {
@@ -54,6 +55,13 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
       path: "order",
       icon: "bx bx-heart",
       roles: ["admin", "cashier", "user"],
+      children: [
+        {
+          name: "View Order",
+          path: "/order/view-order",
+        },
+        { name: "Print receipt", path: "/order/receipt" },
+      ],
     },
     {
       name: "Report",
@@ -109,10 +117,45 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
           .filter((item) => item.roles.includes(user.role))
           .map((item) => (
             <li key={item.name}>
-              {/* ADMIN + SETTING → DROPDOWN */}
-              {item.name === "Setting" &&
-              user.role === "admin" &&
-              item.children ? (
+              {/* ORDER DROPDOWN */}
+              {item.name === "Order" && item.children ? (
+                <>
+                  <a
+                    className={`menu-link order-dropdown-toggle `}
+                    onClick={() => setOpenOrder(!openOrder)}
+                  >
+                    <i className={item.icon}></i>
+                    {!collapsed && <span>{item.name}</span>}
+                    {!collapsed && (
+                      <i
+                        className={`bx bx-chevron-down arrow ${
+                          openOrder ? "rotate" : ""
+                        }`}
+                      ></i>
+                    )}
+                  </a>
+
+                  {openOrder && !collapsed && (
+                    <ul className="submenu">
+                      {item.children.map((sub) => (
+                        <li key={sub.path}>
+                          <NavLink
+                            to={sub.path}
+                            className={({ isActive }) =>
+                              `submenu-link ${isActive ? "active" : ""}`
+                            }
+                          >
+                            <i className="bx bx-radio-circle"></i>
+                            {sub.name}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              ) : item.name === "Setting" &&
+                user.role === "admin" &&
+                item.children ? (
                 <>
                   <a
                     className="menu-link setting-dropdown-toggle"

@@ -1,16 +1,17 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home/Home";
+import Home from "./components/Home/Home";
 import Login from "./pages/Auth/Login";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import Dashboard from "./pages/DashboardPage/DashboardPage";
 import CustomersPage from "./pages/CustomersPage/CustomersPage";
 import PaymentPage from "./pages/PaymentPage/PaymentPage";
 import StockPage from "./pages/StockPage/StockPage";
 import OrderPage from "./pages/OrderPage/OrderPage";
+import Receipt from "./pages/ReceiptPage/ReceiptPage";
 import ReportPage from "./pages/ReportPage/ReportPage";
-import Setting from "./pages/Setting/Setting";
-import Profile from "./pages/Profile/Profile";
-import User from "./pages/Users/Users";
+import Setting from "./pages/SettingPage/SettingPage";
+import Profile from "./pages/ProfilePage/ProfilePage";
+import User from "./pages/UsersPage/UsersPage";
 
 function App() {
   return (
@@ -67,10 +68,19 @@ function App() {
           />
 
           <Route
-            path="order"
+            path="order/view-order"
             element={
               <ProtectedRoute roles={["admin", "cashier", "user"]}>
                 <OrderPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="order/receipt"
+            element={
+              <ProtectedRoute roles={["admin", "cashier", "user"]}>
+                <Receipt />
               </ProtectedRoute>
             }
           />
