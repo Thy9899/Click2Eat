@@ -14,12 +14,12 @@ const CustomersPage = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          "https://click2eat-backend-customer-service.onrender.com/api/customers/customer",
+          "https://click2eat-backend-customer-service-iiqh.onrender.com/api/customers/customer",
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
         const data = await res.json();
         if (data.success) {
@@ -44,7 +44,7 @@ const CustomersPage = () => {
     (c) =>
       c.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
       c.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (c.phone?.toLowerCase() || "").includes(searchTerm.toLowerCase())
+      (c.phone?.toLowerCase() || "").includes(searchTerm.toLowerCase()),
   );
 
   // -----------------------------
@@ -55,7 +55,7 @@ const CustomersPage = () => {
 
   const currentItems = filteredCustomers.slice(
     startIndex,
-    startIndex + itemsPerPage
+    startIndex + itemsPerPage,
   );
 
   const goToPage = (page) => {

@@ -50,14 +50,14 @@ const SettingPage = () => {
       if (form.picture) formData.append("image", form.picture);
 
       const res = await fetch(
-        `https://click2eat-backend-admin-service.onrender.com/api/admins/profile/${adminId}`,
+        `https://click2eat-backend-admin-service-hd2q.onrender.com/api/admins/profile/${adminId}`,
         {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: formData,
-        }
+        },
       );
 
       const data = await res.json();
@@ -99,7 +99,7 @@ const SettingPage = () => {
 
     try {
       const res = await fetch(
-        "https://click2eat-backend-admin-service.onrender.com/api/admins/change-password",
+        "https://click2eat-backend-admin-service-hd2q.onrender.com/api/admins/change-password",
         {
           method: "PUT",
           headers: {
@@ -110,7 +110,7 @@ const SettingPage = () => {
             currentPassword: form.currentPassword,
             newPassword: form.newPassword,
           }),
-        }
+        },
       );
 
       const data = await res.json();

@@ -35,16 +35,16 @@ export const ReportProvider = ({ children }) => {
     try {
       const [dailyRes, monthlyRes, statusRes] = await Promise.all([
         axios.get(
-          "https://click2eat-backend-report-service.onrender.com/api/reports/daily-sales",
-          config
+          "https://click2eat-backend-report-service-tx8o.onrender.com/api/reports/daily-sales",
+          config,
         ),
         axios.get(
-          "https://click2eat-backend-report-service.onrender.com/api/reports/monthly-sales",
-          config
+          "https://click2eat-backend-report-service-tx8o.onrender.com/api/reports/monthly-sales",
+          config,
         ),
         axios.get(
-          "https://click2eat-backend-report-service.onrender.com/api/reports/order-status",
-          config
+          "https://click2eat-backend-report-service-tx8o.onrender.com/api/reports/order-status",
+          config,
         ),
       ]);
 

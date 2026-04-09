@@ -35,7 +35,7 @@ export const PaymentProvider = ({ children }) => {
 
   // Backend base URL (cleaner & reusable)
   const BASE_URL =
-    "https://click2eat-backend-order-service.onrender.com/api/order";
+    "https://click2eat-backend-order-service-48hv.onrender.com/api/order";
 
   /**
    * ===========================
@@ -84,11 +84,11 @@ export const PaymentProvider = ({ children }) => {
 
     try {
       const res = await axios.post(
-        `https://click2eat-backend-order-service.onrender.com/api/order/admin/pay/${order_id}`,
+        `https://click2eat-backend-order-service-48hv.onrender.com/api/order/admin/pay/${order_id}`,
         { payment_method: method },
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
 
       // Payment succeeded in backend

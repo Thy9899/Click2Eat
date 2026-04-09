@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
+    JSON.parse(localStorage.getItem("user")) || null,
   );
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [loading, setLoading] = useState(false);
@@ -40,8 +40,8 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const res = await axios.post(
-        "https://click2eat-backend-admin-service.onrender.com/api/admins/login",
-        { email, password }
+        "https://click2eat-backend-admin-service-hd2q.onrender.com/api/admins/login",
+        { email, password },
       );
       setToken(res.data.token);
       setUser(res.data.user);
@@ -67,8 +67,8 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       const res = await axios.post(
-        "https://click2eat-backend-admin-service.onrender.com/api/admins/register",
-        formData
+        "https://click2eat-backend-admin-service-hd2q.onrender.com/api/admins/register",
+        formData,
       );
       return { success: true, data: res.data };
     } catch (err) {
@@ -96,12 +96,12 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const res = await axios.get(
-        "https://click2eat-backend-admin-service.onrender.com/api/admins/profile",
+        "https://click2eat-backend-admin-service-hd2q.onrender.com/api/admins/profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (res.data.success) {

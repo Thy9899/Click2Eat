@@ -34,8 +34,8 @@ export const OrderProvider = ({ children }) => {
     setLoading(true);
     try {
       const res = await axios.get(
-        "https://click2eat-backend-order-service.onrender.com/api/order/admin",
-        getAxiosConfig()
+        "https://click2eat-backend-order-service-48hv.onrender.com/api/order/admin",
+        getAxiosConfig(),
       );
       setOrders(res.data.list || []);
     } catch (err) {
@@ -56,8 +56,8 @@ export const OrderProvider = ({ children }) => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `https://click2eat-backend-order-service.onrender.com/api/order/admin/${order_id}`,
-        getAxiosConfig()
+        `https://click2eat-backend-order-service-48hv.onrender.com/api/order/admin/${order_id}`,
+        getAxiosConfig(),
       );
       setCurrentOrder(res.data.order);
       return res.data.order;
@@ -76,9 +76,9 @@ export const OrderProvider = ({ children }) => {
     setProcessing({ orderId, action: "confirm" });
     try {
       await axios.put(
-        `https://click2eat-backend-order-service.onrender.com/api/order/admin/confirm/${orderId}`,
+        `https://click2eat-backend-order-service-48hv.onrender.com/api/order/admin/confirm/${orderId}`,
         {},
-        getAxiosConfig()
+        getAxiosConfig(),
       );
       toast.success("Order confirmed");
       fetchOrders();
@@ -96,9 +96,9 @@ export const OrderProvider = ({ children }) => {
     setProcessing({ orderId, action: "cancel" });
     try {
       await axios.put(
-        `https://click2eat-backend-order-service.onrender.com/api/order/admin/cancel/${orderId}`,
+        `https://click2eat-backend-order-service-48hv.onrender.com/api/order/admin/cancel/${orderId}`,
         {},
-        getAxiosConfig()
+        getAxiosConfig(),
       );
       toast.info("Order cancelled");
       fetchOrders();

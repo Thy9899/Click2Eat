@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../context/AuthContext";
 
 const API_URL =
-  "https://click2eat-backend-product-service.onrender.com/api/products";
+  "https://click2eat-backend-product-service-887e.onrender.com/api/products";
 
 const Stock = () => {
   //  Get token and user from AuthContext
@@ -202,14 +202,14 @@ const Stock = () => {
   const filteredProducts = products.filter(
     (p) =>
       p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.category.toLowerCase().includes(searchTerm.toLowerCase())
+      p.category.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = filteredProducts.slice(
     startIndex,
-    startIndex + itemsPerPage
+    startIndex + itemsPerPage,
   );
 
   const goToPage = (page) => {
@@ -421,8 +421,8 @@ const Stock = () => {
                         ? "Updating..."
                         : "Saving..."
                       : editId
-                      ? "Update"
-                      : "Save"}
+                        ? "Update"
+                        : "Save"}
                   </button>
                 </div>
               </div>
